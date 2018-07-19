@@ -96,5 +96,18 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should return an error if the body is incomplete', done => {
+      chai.request(server)
+        .post('/api/v1/users')
+        .send({ user: {} })
+        .end((err, resp) => {
+          resp.should.have.status(422);
+          resp.body.should.be.a('object');
+          resp.body.should.have.property('error');
+          resp.body.error.should.equal('Expected format user: { gamer_tag: <String>, level_id: <Number> }. You\'re missing a gamer_tag property.');
+          done();
+        });
+    });
   });
 });
