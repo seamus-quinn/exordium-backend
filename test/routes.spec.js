@@ -74,7 +74,25 @@ describe('API Routes', () => {
           resp.should.have.status(500);
           resp.body.should.be.a('object');
           resp.body.should.have.property('error');
-          resp.body.error.should.equal('Could not find a game with the id of 123')
+          resp.body.error.should.equal('Could not find a game with the id of 123');
+          done();
+        });
+    });
+  });
+
+  describe('POST /api/v1/users', () => {
+    it('should return the id of the user that was added', done => {
+      chai.request(server)
+        .post('/api/v1/users')
+        .send({
+          user: { gamer_tag: 'Youngpasta', level_id: 1 }
+        })
+        .end((err, resp) => {
+          resp.should.have.status(201);
+          resp.should.be.json;
+          resp.body.should.be.a('object');
+          resp.body.should.have.property('id');
+          resp.body.id.should.equal(3);
           done();
         });
     });
