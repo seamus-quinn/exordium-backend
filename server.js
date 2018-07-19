@@ -43,5 +43,43 @@ app.get('/api/v1/games/:id', (request, response) => {
     });
 })
 
+app.post('/api/v1/users', (request, response) => {
+  const { user } = request.body;
+
+  for (let requiredParam of ['gamer_tag', 'level_id']) {
+    if(!user[requiredParam]){
+      return response
+        .status(422)
+        .send({
+          Error: `Expected format 
+            {
+              title: <String>, 
+              url: <String>, 
+              genre: <String>
+            }
+            You're missing a ${requiredParameter} property.`
+        })
+    }
+  }
+
+  database('games').where('id', user.level_id).select()
+    .then(game => {
+      if (game.length) {
+        database('users').insert(user, 'id')
+          .then(userId => {
+            response.status(201).json({ id: userId[0] })
+          })
+          .catch(error => {
+            throw Error;
+          })
+      } else {
+        response.status(500).json({ error: 'Could not find matching game for id submitted' })
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+
 
 module.exports = app;
