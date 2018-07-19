@@ -22,8 +22,8 @@ app.get('/api/v1/games', (request, response) => {
     })
     .catch(error => {
       response.status(500).json({ error })
-    })
-})
+    });
+});
 
 app.get('/api/v1/games/:id', (request, response) => {
   const { id } = request.params;
@@ -38,8 +38,8 @@ app.get('/api/v1/games/:id', (request, response) => {
     })
     .catch( error => {
       response.status(500).json(error)
-    })
-})
+    });
+});
 
 app.post('/api/v1/users', (request, response) => {
   const { user } = request.body;
@@ -50,34 +50,23 @@ app.post('/api/v1/users', (request, response) => {
         .status(422)
         .send({
           Error: `Expected format 
-            {
-              title: <String>, 
-              url: <String>, 
-              genre: <String>
+            user: {
+              gamer_tag: <String>, 
+              level_id: <Number>
             }
             You're missing a ${requiredParameter} property.`
-        })
+        });
     }
   }
 
-  database('games').where('id', user.level_id).select()
-    .then(game => {
-      if (game.length) {
-        database('users').insert(user, 'id')
-          .then(userId => {
-            response.status(201).json({ id: userId[0] })
-          })
-          .catch(error => {
-            throw Error;
-          })
-      } else {
-        response.status(500).json({ error: 'Could not find matching game for id submitted' })
-      }
+  database('users').insert(user, 'id')
+    .then(userId => {
+      response.status(201).json({ id: userId[0] })
     })
     .catch(error => {
       response.status(500).json({ error })
-    })
-})
+    });
+});
 
 
 module.exports = app;
