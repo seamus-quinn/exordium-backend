@@ -49,12 +49,7 @@ app.post('/api/v1/users', (request, response) => {
       return response
         .status(422)
         .send({
-          Error: `Expected format 
-            user: {
-              gamer_tag: <String>, 
-              level_id: <Number>
-            }
-            You're missing a ${requiredParameter} property.`
+          error: `Expected format user: { gamer_tag: <String>, level_id: <Number> }. You're missing a ${requiredParam} property.`
         });
     }
   }
