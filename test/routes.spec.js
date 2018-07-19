@@ -66,5 +66,17 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should return an error if the id does not exist', done => {
+      chai.request(server)
+        .get('/api/v1/games/123')
+        .end((err, resp) => {
+          resp.should.have.status(500);
+          resp.body.should.be.a('object');
+          resp.body.should.have.property('error');
+          resp.body.error.should.equal('Could not find a game with the id of 123')
+          done();
+        });
+    });
   });
 });
