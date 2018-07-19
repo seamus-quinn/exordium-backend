@@ -25,4 +25,16 @@ app.get('/api/v1/games', (request, response) => {
     })
 })
 
+app.get('/api/v1/games/:id', (request, response) => {
+  const { id } = request.params;
+
+  database('games').where('id', id).select()
+    .then(game => {
+      response.status(200).json({ game })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+})
+
 module.exports = app;
