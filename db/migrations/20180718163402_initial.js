@@ -20,6 +20,8 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-  knex.schema.dropTable('users');
-  knex.schema.dropTable('games')
+  return Promise.all([
+    knex.schema.dropTable('users'),
+    knex.schema.dropTable('games')
+  ]);
 };
