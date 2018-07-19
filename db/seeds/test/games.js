@@ -14,7 +14,7 @@ exports.seed = (knex, Promise) => {
           ])
         })
         .then(() => console.log('Seeding complete'))
-        .then(error => console.log(error))
+        .catch(error => console.log(error))
       ])
     })
     .catch(error => console.log(error))
