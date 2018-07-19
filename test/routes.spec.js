@@ -42,10 +42,27 @@ describe('API Routes', () => {
           resp.should.have.status(200);
           resp.should.be.json;
           resp.body.should.be.a('array');
-          resp.body[0].should.have.property('id')
-          resp.body[0].id.should.equal(1)
-          resp.body[0].should.have.property('level_name')
-          resp.body[0].level_name.should.equal('CSS-01')
+          resp.body[0].should.have.property('id');
+          resp.body[0].id.should.equal(1);
+          resp.body[0].should.have.property('level_name');
+          resp.body[0].level_name.should.equal('CSS-01');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/games/:id', () => {
+    it('should return an individual game object', done => {
+      chai.request(server)
+        .get('/api/v1/games/1')
+        .end((err, resp) => {
+          resp.should.have.status(200);
+          resp.should.be.json;
+          resp.body.should.be.a('object');
+          resp.body.should.have.property('id');
+          resp.body.id.should.equal(1);
+          resp.body.should.have.property('level_name');
+          resp.body.level_name.should.equal('CSS-01');
           done();
         });
     });
