@@ -30,11 +30,18 @@ app.get('/api/v1/games/:id', (request, response) => {
 
   database('games').where('id', id).select()
     .then(game => {
-      response.status(200).json({ game })
+      if (game.length) {
+        response.status(200).json(game[0]);
+      } else {
+        throw Error;
+      }
     })
     .catch(error => {
-      response.status(500).json({ error })
-    })
+      response.status(500).json(
+        { errorMessage: `Could not find game with id of ${id}`, error }
+      );
+    });
 })
+
 
 module.exports = app;
