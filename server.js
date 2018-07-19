@@ -18,7 +18,7 @@ app.listen(app.get('port'), () => {
 app.get('/api/v1/games', (request, response) => {
   database('games').select()
     .then(games => {
-      response.status(200).json({ games })
+      response.status(200).json(games)
     })
     .catch(error => {
       response.status(500).json({ error })
