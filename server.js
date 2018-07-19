@@ -33,14 +33,12 @@ app.get('/api/v1/games/:id', (request, response) => {
       if (game.length) {
         response.status(200).json(game[0]);
       } else {
-        throw Error;
+        response.status(500).json({error: `Could not find a game with the id of ${id}`});
       }
     })
-    .catch(error => {
-      response.status(500).json(
-        { errorMessage: `Could not find game with id of ${id}`, error }
-      );
-    });
+    .catch( error => {
+      response.status(500).json(error)
+    })
 })
 
 app.post('/api/v1/users', (request, response) => {
