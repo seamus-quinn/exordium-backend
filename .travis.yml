@@ -1,0 +1,12 @@
+language: node_js
+node_js: '8'
+services: postgresql
+before_script: psql -c 'CREATE DATABASE exordium;'
+notifications:
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: iUHNnoVqP6Fb+fRx0/xaGHk61TqTsCe9SVx09lvGAj5RQVAQ+kHIMqEUfytaQfQSykV2wM6HHsD0Hr701SlxdOILeKj/5PxtoqyokSNoEtxTJv5fkB5YYBc1pShL9flMOXLsQOQ41hJkZrw+ybUG5so3BCBYSYxWKG9ZGtoCJIc776qFKDq0VUc8AfaCbrEOTQAvg1jh4FBR9Rsl1WDCRGUS+J9T6ZALcp+uLKPY7K9Jv1REjRr5gKTx8f8qGN26wNQ/SSN+MdR3EklDlILF079531GNPzyKMoK8udsXhgaqhWBB9wM/e2GouGkB9qhM7SWLS/pQX2F3IonCOpsTAiIy5Hlv8ZCxCzjFg8u+hTvN56eCYJ4o66hm0GtvFyARAooJxdiYNzkWFZ6+8Bbn7hqq4WRLMyL2lfNZ4nhioow2ksszV/4i0kYIw+XxHS5LHJDYdp9D7vXYfb15ee9bb+5cfzJ0NAD9a18j76napH+Fm9rQm+GGpoJIEVICzfnbxtkJeS13+EUluJRePtP/Tj68J/To2K2jl5qnLRPmnLu6IzL3nBS24RQdlBuCDVSCj7rZ3HNM2P9E9y9qMN0QrGPQe4yeQPTHU9YUm6Oaw/fV3vk9JOoupk/08eawOmwuchBlh4DiLRWARJeQLJThg9gV+gJhXeipQf8K20Cn+2Y=
+  app: exordium-backend
+  skip_cleanup: true
