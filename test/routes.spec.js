@@ -110,4 +110,23 @@ describe('API Routes', () => {
         });
     });
   });
+
+  describe('GET /api/v1/users', () => {
+    it('should return an array of user objects', done => {
+      chai.request(server)
+        .get('/api/v1/users')
+        .end((err, resp) => {
+          resp.should.have.status(200);
+          resp.should.be.json;
+          resp.body.should.be.a('array');
+          resp.body[1].should.have.property('id');
+          resp.body[1].id.should.equal(2);
+          resp.body[1].should.have.property('gamer_tag');
+          resp.body[1].gamer_tag.should.equal('CrunchWrapTheDream');
+          resp.body[1].should.have.property('level_id');
+          resp.body[1].level_id.should.equal(1);
+          done();
+        })
+    });
+  });
 });
